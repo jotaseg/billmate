@@ -4,10 +4,10 @@ import { FormData } from "../types/FormData";
 import { FormField } from "./FormField";
 import { FormTextarea } from "./FormTextarea";
 import { FormSelect } from "./FormSelect";
+import { Button } from "./Button";
 
 export const App = () => {
   const [formData, setFormData] = useState<FormData>({
-    name: "",
     email: "",
     fullName: "",
     streetAndNumber: "",
@@ -269,7 +269,6 @@ export const App = () => {
     setPdfEmbed(true);
 
     setFormData({
-      name: "",
       email: "",
       fullName: "",
       streetAndNumber: "",
@@ -320,14 +319,6 @@ export const App = () => {
     <main className="m-auto grid place-items-center bg-gray-900">
       <h1>Invoice Generator</h1>
       <form onSubmit={handleSubmit}>
-        <FormField
-          label="Name"
-          name="name"
-          type="text"
-          value={formData.name}
-          onChange={handleInputChange}
-          required
-        />
         <FormField
           label="Email"
           name="email"
@@ -486,15 +477,15 @@ export const App = () => {
               onChange={handleInputChange}
               required
             />
-            <div>Total Amount: {service.totalAmount.toFixed(2)} </div>
-            <button type="button" onClick={() => removeService(index)}>
-              Remove Service
-            </button>{" "}
+            <div>Total Amount: {service.totalAmount.toFixed(2)}</div>
+            <Button
+              type="button"
+              onClick={() => removeService(index)}
+              label="Remove Service"
+            />
           </div>
         ))}
-        <button type="button" onClick={addService}>
-          Add Service
-        </button>{" "}
+        <Button type="button" onClick={addService} label="Add Service" />
         <FormField
           label="Bank Account Details"
           name="bankAccountDetails"
@@ -525,7 +516,7 @@ export const App = () => {
           value={formData.shippingFees}
           onChange={handleInputChange}
         />
-        <button type="submit">Generate PDF</button>
+        <Button type="submit" label="Generate PDF" />
       </form>
       {pdfEmbed && pdfDataUri && (
         <iframe
