@@ -3,13 +3,18 @@ import { PDFDocument, rgb } from "pdf-lib";
 import { FormData } from "../types/FormData";
 import { FormField } from "./FormField";
 import { FormTextarea } from "./FormTextarea";
+import { FormSelect } from "./FormSelect";
 
 export const App = () => {
   const [formData, setFormData] = useState<FormData>({
     name: "",
     email: "",
     fullName: "",
-    address: "",
+    streetAndNumber: "",
+    postalCode: "",
+    locality: "",
+    cityOrTown: "",
+    country: "",
     vat: 0,
     tin: "",
     clientFullName: "",
@@ -78,6 +83,14 @@ export const App = () => {
       day: "numeric",
     });
 
+    const addressLines = [
+      `Street and Number: ${formData.streetAndNumber}`,
+      `Postal Code: ${formData.postalCode}`,
+      `Locality: ${formData.locality}`,
+      `City or Town: ${formData.cityOrTown}`,
+      `Country: ${formData.country}`,
+    ];
+
     const formattedVat = `${formData.vat.toFixed(2)}%`;
     const formattedClientVat = `${formData.clientVat.toFixed(2)}%`;
 
@@ -97,12 +110,14 @@ export const App = () => {
       color: rgb(0, 0, 0),
     });
 
-    page.drawText(`Address: ${formData.address}`, {
-      x: 50,
-      y: height - 70,
-      size: 14,
-      font: helveticaFont,
-      color: rgb(0, 0, 0),
+    addressLines.forEach((line, index) => {
+      page.drawText(line, {
+        x: 50,
+        y: height - 70 - index * 20, // Adjust the vertical position as needed
+        size: 14,
+        font: helveticaFont,
+        color: rgb(0, 0, 0),
+      });
     });
 
     page.drawText(`VAT: ${formattedVat}`, {
@@ -257,7 +272,11 @@ export const App = () => {
       name: "",
       email: "",
       fullName: "",
-      address: "",
+      streetAndNumber: "",
+      postalCode: "",
+      locality: "",
+      cityOrTown: "",
+      country: "",
       vat: 0,
       tin: "",
       clientFullName: "",
@@ -326,10 +345,41 @@ export const App = () => {
           required
         />
         <FormField
-          label="Address"
-          name="address"
+          label="Street and Number"
+          name="streetAndNumber"
           type="text"
-          value={formData.address}
+          value={formData.streetAndNumber}
+          onChange={handleInputChange}
+          required
+        />
+        <FormField
+          label="Postal Code"
+          name="postalCode"
+          type="text"
+          value={formData.postalCode}
+          onChange={handleInputChange}
+          required
+        />
+        <FormField
+          label="Locality"
+          name="locality"
+          type="text"
+          value={formData.locality}
+          onChange={handleInputChange}
+        />
+        <FormField
+          label="City or Town"
+          name="cityOrTown"
+          type="text"
+          value={formData.cityOrTown}
+          onChange={handleInputChange}
+          required
+        />
+        <FormField
+          label="Country"
+          name="country"
+          type="text"
+          value={formData.country}
           onChange={handleInputChange}
           required
         />
@@ -393,12 +443,14 @@ export const App = () => {
           onChange={handleInputChange}
           required
         />
-        <FormField
+        <FormSelect
           label="Currency"
           name="currency"
-          type="text"
           value={formData.currency}
-          onChange={handleInputChange}
+          onChange={(e) => {
+            const { name, value } = e.target;
+            setFormData({ ...formData, [name]: value });
+          }}
           required
         />
         <FormTextarea

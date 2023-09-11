@@ -2,7 +2,11 @@ export type FormData = {
   name: string;
   email: string;
   fullName: string;
-  address: string;
+  streetAndNumber: string;
+  postalCode: string;
+  locality: string;
+  cityOrTown: string;
+  country: string;
   vat: number;
   tin: string;
   clientFullName: string;
