@@ -317,7 +317,7 @@ export const App = () => {
   };
 
   return (
-    <main>
+    <main className="m-auto grid place-items-center bg-gray-900">
       <h1>Invoice Generator</h1>
       <form onSubmit={handleSubmit}>
         <FormField
