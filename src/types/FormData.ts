@@ -1,5 +1,4 @@
 export type FormData = {
-  email: string;
   fullName: string;
   streetAndNumber: string;
   postalCode: string;
@@ -10,7 +9,6 @@ export type FormData = {
   tin: string;
   clientFullName: string;
   clientAddress: string;
-  clientVat: number;
   clientTin: string;
   descriptionOfServices: string;
   services: {

@@ -8,7 +8,6 @@ import { Button } from "./Button";
 
 export const App = () => {
   const [formData, setFormData] = useState<FormData>({
-    email: "",
     fullName: "",
     streetAndNumber: "",
     postalCode: "",
@@ -19,7 +18,6 @@ export const App = () => {
     tin: "",
     clientFullName: "",
     clientAddress: "",
-    clientVat: 0,
     clientTin: "",
     descriptionOfServices: "",
     services: [],
@@ -92,7 +90,6 @@ export const App = () => {
     ];
 
     const formattedVat = `${formData.vat.toFixed(2)}%`;
-    const formattedClientVat = `${formData.clientVat.toFixed(2)}%`;
 
     page.drawText(`Invoice Date: ${currentDate}`, {
       x: 50,
@@ -150,14 +147,6 @@ export const App = () => {
     page.drawText(`Client Address: ${formData.clientAddress}`, {
       x: 50,
       y: height - 160,
-      size: 14,
-      font: helveticaFont,
-      color: rgb(0, 0, 0),
-    });
-
-    page.drawText(`Client VAT: ${formattedClientVat}`, {
-      x: 50,
-      y: height - 180,
       size: 14,
       font: helveticaFont,
       color: rgb(0, 0, 0),
@@ -269,7 +258,6 @@ export const App = () => {
     setPdfEmbed(true);
 
     setFormData({
-      email: "",
       fullName: "",
       streetAndNumber: "",
       postalCode: "",
@@ -280,7 +268,6 @@ export const App = () => {
       tin: "",
       clientFullName: "",
       clientAddress: "",
-      clientVat: 0,
       clientTin: "",
       descriptionOfServices: "",
       services: [],
@@ -316,206 +303,207 @@ export const App = () => {
   };
 
   return (
-    <main className="m-auto grid place-items-center bg-gray-900">
+    <main className="h-screen grid place-content-center bg-gray-900">
       <h1>Invoice Generator</h1>
       <form onSubmit={handleSubmit}>
-        <FormField
-          label="Email"
-          name="email"
-          type="email"
-          value={formData.email}
-          onChange={handleInputChange}
-          required
-        />
-        <FormField
-          label="Full Name or Business Name"
-          name="fullName"
-          type="text"
-          value={formData.fullName}
-          onChange={handleInputChange}
-          required
-        />
-        <FormField
-          label="Street and Number"
-          name="streetAndNumber"
-          type="text"
-          value={formData.streetAndNumber}
-          onChange={handleInputChange}
-          required
-        />
-        <FormField
-          label="Postal Code"
-          name="postalCode"
-          type="text"
-          value={formData.postalCode}
-          onChange={handleInputChange}
-          required
-        />
-        <FormField
-          label="Locality"
-          name="locality"
-          type="text"
-          value={formData.locality}
-          onChange={handleInputChange}
-        />
-        <FormField
-          label="City or Town"
-          name="cityOrTown"
-          type="text"
-          value={formData.cityOrTown}
-          onChange={handleInputChange}
-          required
-        />
-        <FormField
-          label="Country"
-          name="country"
-          type="text"
-          value={formData.country}
-          onChange={handleInputChange}
-          required
-        />
-        <FormField
-          label="VAT (Value Added Tax)"
-          name="vat"
-          type="number"
-          value={formData.vat}
-          onChange={handleInputChange}
-        />
-        <FormField
-          label="Tax Identification Number (TIN)"
-          name="tin"
-          type="text"
-          value={formData.tin}
-          onChange={handleInputChange}
-        />
-        <FormField
-          label="Client Full Name or Business Name"
-          name="clientFullName"
-          type="text"
-          value={formData.clientFullName}
-          onChange={handleInputChange}
-          required
-        />
-        <FormField
-          label="Client Address"
-          name="clientAddress"
-          type="text"
-          value={formData.clientAddress}
-          onChange={handleInputChange}
-          required
-        />
-        <FormField
-          label="Client VAT (Value Added Tax)"
-          name="clientVat"
-          type="number"
-          value={formData.clientVat}
-          onChange={handleInputChange}
-        />
-        <FormField
-          label="Client Tax Identification Number (TIN)"
-          name="clientTin"
-          type="text"
-          value={formData.clientTin}
-          onChange={handleInputChange}
-        />
-        <FormField
-          label="Payment Due Date"
-          name="paymentDueDate"
-          type="date"
-          value={formData.paymentDueDate}
-          onChange={handleInputChange}
-          required
-        />
-        <FormField
-          label="Payment Terms"
-          name="paymentTerms"
-          type="text"
-          value={formData.paymentTerms}
-          onChange={handleInputChange}
-          required
-        />
-        <FormSelect
-          label="Currency"
-          name="currency"
-          value={formData.currency}
-          onChange={(e) => {
-            const { name, value } = e.target;
-            setFormData({ ...formData, [name]: value });
-          }}
-          required
-        />
-        <FormTextarea
-          label="Description of Services"
-          name="descriptionOfServices"
-          value={formData.descriptionOfServices}
-          onChange={handleInputChange}
-          rows={4}
-        />
-        {formData.services.map((service, index) => (
-          <div key={index}>
-            <FormField
-              label={`Service ${index + 1}`}
-              name={`services[${index}].description`}
-              type="text"
-              value={service.description}
-              onChange={handleInputChange}
-              required
-            />
-            <FormField
-              label={`Quantity`}
-              name={`services[${index}].quantity`}
-              type="number"
-              value={service.quantity}
-              onChange={handleInputChange}
-              required
-            />
-            <FormField
-              label={`Rate Per Unit`}
-              name={`services[${index}].ratePerUnit`}
-              type="number"
-              value={service.ratePerUnit}
-              onChange={handleInputChange}
-              required
-            />
-            <div>Total Amount: {service.totalAmount.toFixed(2)}</div>
-            <Button
-              type="button"
-              onClick={() => removeService(index)}
-              label="Remove Service"
-            />
-          </div>
-        ))}
+        {/* User */}
+        <section className="grid grid-cols-3 gap-4">
+          <FormField
+            label="Full Name / Business Name"
+            name="fullName"
+            type="text"
+            value={formData.fullName}
+            onChange={handleInputChange}
+            required
+          />
+          <FormField
+            label="Address (street and number)"
+            name="streetAndNumber"
+            type="text"
+            value={formData.streetAndNumber}
+            onChange={handleInputChange}
+            required
+          />
+          <FormField
+            label="Postal Code"
+            name="postalCode"
+            type="text"
+            value={formData.postalCode}
+            onChange={handleInputChange}
+            required
+          />
+          <FormField
+            label="Locality"
+            name="locality"
+            type="text"
+            value={formData.locality}
+            onChange={handleInputChange}
+          />
+          <FormField
+            label="City / Town"
+            name="cityOrTown"
+            type="text"
+            value={formData.cityOrTown}
+            onChange={handleInputChange}
+            required
+          />
+          <FormField
+            label="Country"
+            name="country"
+            type="text"
+            value={formData.country}
+            onChange={handleInputChange}
+            required
+          />
+        </section>
+        {/* User */}
+        {/* Client */}
+        <section className="grid grid-cols-3 gap-4">
+          <FormField
+            label="Client Full Name or Business Name"
+            name="clientFullName"
+            type="text"
+            value={formData.clientFullName}
+            onChange={handleInputChange}
+            required
+          />
+          <FormField
+            label="Client Address"
+            name="clientAddress"
+            type="text"
+            value={formData.clientAddress}
+            onChange={handleInputChange}
+            required
+          />
+          <FormField
+            label="Client Tax Identification Number (TIN)"
+            name="clientTin"
+            type="text"
+            value={formData.clientTin}
+            onChange={handleInputChange}
+          />
+        </section>
+        {/* Client */}
+        {/* Payment 1 */}
+        <section className="grid grid-cols-3 gap-4">
+          <FormSelect
+            label="Currency"
+            name="currency"
+            value={formData.currency}
+            onChange={(e) => {
+              const { name, value } = e.target;
+              setFormData({ ...formData, [name]: value });
+            }}
+            required
+          />
+          <FormField
+            label="Payment Due Date"
+            name="paymentDueDate"
+            type="date"
+            value={formData.paymentDueDate}
+            onChange={handleInputChange}
+            required
+          />
+        </section>
+        {/* Payment 1 */}
+        {/* Payment 2 */}
+        <section className="grid grid-cols-2 gap-4">
+          <FormTextarea
+            label="Payment Terms"
+            name="paymentTerms"
+            value={formData.paymentTerms}
+            onChange={handleInputChange}
+            rows={4}
+          />
+          {formData.services.map((service, index) => (
+            <div key={index}>
+              <FormField
+                label={`Service ${index + 1}`}
+                name={`services[${index}].description`}
+                type="text"
+                value={service.description}
+                onChange={handleInputChange}
+                required
+              />
+              <FormField
+                label={`Quantity`}
+                name={`services[${index}].quantity`}
+                type="number"
+                value={service.quantity}
+                onChange={handleInputChange}
+                required
+              />
+              <FormField
+                label={`Rate Per Unit`}
+                name={`services[${index}].ratePerUnit`}
+                type="number"
+                value={service.ratePerUnit}
+                onChange={handleInputChange}
+                required
+              />
+              <div>Total Amount: {service.totalAmount.toFixed(2)}</div>
+              <Button
+                type="button"
+                onClick={() => removeService(index)}
+                label="Remove Service"
+              />
+            </div>
+          ))}
+        </section>
         <Button type="button" onClick={addService} label="Add Service" />
-        <FormField
-          label="Bank Account Details"
-          name="bankAccountDetails"
-          type="text"
-          value={formData.bankAccountDetails}
-          onChange={handleInputChange}
-        />
-        <FormTextarea
-          label="Payment Instructions"
-          name="paymentInstructions"
-          value={formData.paymentInstructions}
-          onChange={handleInputChange}
-          rows={4}
-          placeholder="Additional Payment Instructions or Terms"
-        />
-        <FormTextarea
-          label="Terms and Conditions"
-          name="termsAndConditions"
-          value={formData.termsAndConditions}
-          onChange={handleInputChange}
-          rows={4}
-          placeholder="Terms and Conditions (e.g., late payment fees, refund policies, confidentiality agreements)"
-        />
-        <FormField
-          label="Shipping Fees"
-          name="shippingFees"
-          type="number"
-          value={formData.shippingFees}
-          onChange={handleInputChange}
-        />
+        {/* Payment 2 */}
+        {/* Payment 3 */}
+        <section className="grid grid-cols-2 gap-4">
+          <FormTextarea
+            label="Bank Account Details"
+            name="bankAccountDetails"
+            value={formData.bankAccountDetails}
+            onChange={handleInputChange}
+            rows={4}
+          />
+          <FormTextarea
+            label="Payment Instructions"
+            name="paymentInstructions"
+            value={formData.paymentInstructions}
+            onChange={handleInputChange}
+            rows={4}
+            placeholder="Additional Payment Instructions or Terms"
+          />
+        </section>
+        {/* Payment 3 */}
+        <section className="grid gap-4">
+          <FormTextarea
+            label="Terms and Conditions"
+            name="termsAndConditions"
+            value={formData.termsAndConditions}
+            onChange={handleInputChange}
+            rows={4}
+            placeholder="Terms and Conditions (e.g., late payment fees, refund policies, confidentiality agreements)"
+          />
+        </section>
+        <section className="grid grid-cols-2 gap-4">
+          <FormField
+            label="VAT (Value Added Tax)"
+            name="vat"
+            type="number"
+            value={formData.vat}
+            onChange={handleInputChange}
+          />
+          <FormField
+            label="Tax Identification Number (TIN)"
+            name="tin"
+            type="text"
+            value={formData.tin}
+            onChange={handleInputChange}
+          />
+          <FormField
+            label="Shipping Fees"
+            name="shippingFees"
+            type="number"
+            value={formData.shippingFees}
+            onChange={handleInputChange}
+          />
+        </section>
         <Button type="submit" label="Generate PDF" />
       </form>
       {pdfEmbed && pdfDataUri && (

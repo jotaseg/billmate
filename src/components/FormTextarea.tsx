@@ -24,7 +24,7 @@ export const FormTextarea: FC<FormTextareas> = ({
         onChange={onChange}
         rows={rows}
         placeholder={placeholder}
-        className="mt-2 w-full rounded-lg border-gray-200 align-top shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-white sm:text-sm"
+        className="mt-2 w-full rounded-lg p-2 border-gray-200 align-top shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-white sm:text-sm"
       />
     </div>
   );
