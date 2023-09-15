@@ -1,4 +1,6 @@
 export type FormData = {
+  invoiceNumber: string;
+  invoiceDate: string;
   fullName: string;
   streetAndNumber: string;
   postalCode: string;

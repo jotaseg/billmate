@@ -8,6 +8,8 @@ import { Button } from "./Button";
 
 export const App = () => {
   const [formData, setFormData] = useState<FormData>({
+    invoiceNumber: "", // Add Invoice Number property
+    invoiceDate: "", // Add Invoice Date property
     fullName: "",
     streetAndNumber: "",
     postalCode: "",
@@ -62,7 +64,11 @@ export const App = () => {
           }
         }
       } else {
-        setFormData({ ...formData, [name]: value });
+        if (name === "invoiceNumber" || name === "invoiceDate") {
+          setFormData({ ...formData, [name]: value });
+        } else {
+          setFormData({ ...formData, [name]: value });
+        }
       }
     }
   };
@@ -258,6 +264,8 @@ export const App = () => {
     setPdfEmbed(true);
 
     setFormData({
+      invoiceNumber: "", // Add Invoice Number property
+      invoiceDate: "", // Add Invoice Date property
       fullName: "",
       streetAndNumber: "",
       postalCode: "",
@@ -306,6 +314,25 @@ export const App = () => {
     <main className="h-screen grid place-content-center bg-gray-900">
       <h1>Invoice Generator</h1>
       <form onSubmit={handleSubmit}>
+        <section className="grid grid-cols-3 gap-4">
+          <FormField
+            label="Invoice Number"
+            name="invoiceNumber"
+            type="text"
+            value={formData.invoiceNumber}
+            onChange={handleInputChange}
+            required
+          />
+
+          <FormField
+            label="Invoice Date"
+            name="invoiceDate"
+            type="date"
+            value={formData.invoiceDate}
+            onChange={handleInputChange}
+            required
+          />
+        </section>
         {/* User */}
         <section className="grid grid-cols-3 gap-4">
           <FormField
@@ -355,12 +382,19 @@ export const App = () => {
             onChange={handleInputChange}
             required
           />
+          <FormField
+            label="Tax Identification Number (TIN)"
+            name="tin"
+            type="text"
+            value={formData.tin}
+            onChange={handleInputChange}
+          />
         </section>
         {/* User */}
         {/* Client */}
         <section className="grid grid-cols-3 gap-4">
           <FormField
-            label="Client Full Name or Business Name"
+            label="Client's Full Name / Business Name"
             name="clientFullName"
             type="text"
             value={formData.clientFullName}
@@ -368,7 +402,7 @@ export const App = () => {
             required
           />
           <FormField
-            label="Client Address"
+            label="Client's Address"
             name="clientAddress"
             type="text"
             value={formData.clientAddress}
@@ -376,7 +410,7 @@ export const App = () => {
             required
           />
           <FormField
-            label="Client Tax Identification Number (TIN)"
+            label="Client's Tax Identification Number (TIN)"
             name="clientTin"
             type="text"
             value={formData.clientTin}
@@ -404,10 +438,6 @@ export const App = () => {
             onChange={handleInputChange}
             required
           />
-        </section>
-        {/* Payment 1 */}
-        {/* Payment 2 */}
-        <section className="grid grid-cols-2 gap-4">
           <FormTextarea
             label="Payment Terms"
             name="paymentTerms"
@@ -415,6 +445,26 @@ export const App = () => {
             onChange={handleInputChange}
             rows={4}
           />
+          <FormTextarea
+            label="Bank Account Details"
+            name="bankAccountDetails"
+            value={formData.bankAccountDetails}
+            onChange={handleInputChange}
+            rows={4}
+          />
+          <FormTextarea
+            label="Payment Instructions"
+            name="paymentInstructions"
+            value={formData.paymentInstructions}
+            onChange={handleInputChange}
+            rows={4}
+            placeholder="Additional Payment Instructions or Terms"
+          />
+        </section>
+        {/* Payment 1 */}
+        <section className="grid grid-cols-3 gap-4"></section>
+        {/* Payment 2 */}
+        <section className="grid grid-cols-2 gap-4">
           {formData.services.map((service, index) => (
             <div key={index}>
               <FormField
@@ -453,25 +503,10 @@ export const App = () => {
         <Button type="button" onClick={addService} label="Add Service" />
         {/* Payment 2 */}
         {/* Payment 3 */}
-        <section className="grid grid-cols-2 gap-4">
-          <FormTextarea
-            label="Bank Account Details"
-            name="bankAccountDetails"
-            value={formData.bankAccountDetails}
-            onChange={handleInputChange}
-            rows={4}
-          />
-          <FormTextarea
-            label="Payment Instructions"
-            name="paymentInstructions"
-            value={formData.paymentInstructions}
-            onChange={handleInputChange}
-            rows={4}
-            placeholder="Additional Payment Instructions or Terms"
-          />
-        </section>
+        <section className="grid grid-cols-2 gap-4"></section>
         {/* Payment 3 */}
-        <section className="grid gap-4">
+        <section className="grid gap-4"></section>
+        <section className="grid grid-cols-2 gap-4">
           <FormTextarea
             label="Terms and Conditions"
             name="termsAndConditions"
@@ -480,27 +515,18 @@ export const App = () => {
             rows={4}
             placeholder="Terms and Conditions (e.g., late payment fees, refund policies, confidentiality agreements)"
           />
-        </section>
-        <section className="grid grid-cols-2 gap-4">
-          <FormField
-            label="VAT (Value Added Tax)"
-            name="vat"
-            type="number"
-            value={formData.vat}
-            onChange={handleInputChange}
-          />
-          <FormField
-            label="Tax Identification Number (TIN)"
-            name="tin"
-            type="text"
-            value={formData.tin}
-            onChange={handleInputChange}
-          />
           <FormField
             label="Shipping Fees"
             name="shippingFees"
             type="number"
             value={formData.shippingFees}
+            onChange={handleInputChange}
+          />
+          <FormField
+            label="VAT (Value Added Tax)"
+            name="vat"
+            type="number"
+            value={formData.vat}
             onChange={handleInputChange}
           />
         </section>
