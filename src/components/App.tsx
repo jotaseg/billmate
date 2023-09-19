@@ -525,45 +525,47 @@ export const App = () => {
             required
           />
         </section>
-        <section className="grid gap-4">
-          {formData.services.map((service, index) => (
-            <div key={index}>
-              <div className="grid grid-cols-4 gap-4">
-                <FormField
-                  label={`Service ${index + 1}`}
-                  name={`services[${index}].description`}
-                  type="text"
-                  value={service.description}
-                  onChange={handleInputChange}
-                  required
-                />
-                <FormField
-                  label={`Quantity`}
-                  name={`services[${index}].quantity`}
-                  type="number"
-                  value={service.quantity}
-                  onChange={handleInputChange}
-                  required
-                />
-                <FormField
-                  label={`Rate Per Unit`}
-                  name={`services[${index}].ratePerUnit`}
-                  type="number"
-                  value={service.ratePerUnit}
-                  onChange={handleInputChange}
-                  required
-                />
-                <Button
-                  type="button"
-                  onClick={() => removeService(index)}
-                  label="X"
-                />
+        <section className="grid grid-cols-1 gap-4">
+          <div className="w-full max-w-2xl mx-auto">
+            {formData.services.map((service, index) => (
+              <div key={index}>
+                <div className="grid grid-cols-4 gap-4">
+                  <FormField
+                    label={`Service ${index + 1}`}
+                    name={`services[${index}].description`}
+                    type="text"
+                    value={service.description}
+                    onChange={handleInputChange}
+                    required
+                  />
+                  <FormField
+                    label={`Quantity`}
+                    name={`services[${index}].quantity`}
+                    type="number"
+                    value={service.quantity}
+                    onChange={handleInputChange}
+                    required
+                  />
+                  <FormField
+                    label={`Rate Per Unit`}
+                    name={`services[${index}].ratePerUnit`}
+                    type="number"
+                    value={service.ratePerUnit}
+                    onChange={handleInputChange}
+                    required
+                  />
+                  <Button
+                    type="button"
+                    onClick={() => removeService(index)}
+                    label="X"
+                  />
+                </div>
+                <div>
+                  <div>Total Amount: {service.totalAmount.toFixed(2)}</div>
+                </div>
               </div>
-              <div>
-                <div>Total Amount: {service.totalAmount.toFixed(2)}</div>
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
           <Button type="button" onClick={addService} label="Add Service" />
         </section>
         <section className="grid grid-cols-3 gap-4">
