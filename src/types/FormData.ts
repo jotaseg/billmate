@@ -11,7 +11,13 @@ export type FormData = {
   tin: string;
   clientFullName: string;
   clientAddress: string;
+  clientPostalCode: string;
+  clientLocality: string;
+  clientCityOrTown: string;
+  clientCountry: string;
   clientTin: string;
+  currency: string;
+  paymentDueDate: string;
   descriptionOfServices: string;
   services: {
     description: string;
@@ -19,9 +25,7 @@ export type FormData = {
     ratePerUnit: number;
     totalAmount: number;
   }[];
-  paymentDueDate: string;
   paymentTerms: string;
-  currency: string;
   bankAccountDetails: string;
   paymentInstructions: string;
   termsAndConditions: string;
