@@ -5,6 +5,7 @@ import { FormField } from "./FormField";
 import { FormTextarea } from "./FormTextarea";
 import { FormSelect } from "./FormSelect";
 import { Button } from "./Button";
+import { drawText } from "../utils/drawText";
 
 export const App = () => {
   const [formData, setFormData] = useState<FormData>({
@@ -83,6 +84,7 @@ export const App = () => {
     const pdfDoc = await PDFDocument.create();
     const page = pdfDoc.addPage([400, 400]);
     const { height } = page.getSize();
+
     const helveticaFont = await pdfDoc.embedFont("Helvetica");
 
     const currentDate = new Date().toLocaleDateString("en-US", {
@@ -93,227 +95,254 @@ export const App = () => {
 
     const formattedVat = `${formData.vat.toFixed(2)}%`;
 
-    page.drawText(`Invoice Number: ${formData.invoiceNumber}`, {
-      x: 50,
-      y: height - 20,
-      size: 14,
-      font: helveticaFont,
-      color: rgb(0, 0, 0),
-    });
-
-    page.drawText(`Invoice Date: ${currentDate}`, {
-      x: 50,
-      y: height - 40,
-      size: 14,
-      font: helveticaFont,
-      color: rgb(0, 0, 0),
-    });
-
-    page.drawText(`Full Name or Business Name: ${formData.fullName}`, {
-      x: 50,
-      y: height - 60,
-      size: 14,
-      font: helveticaFont,
-      color: rgb(0, 0, 0),
-    });
-
-    page.drawText(`Address: ${formData.streetAndNumber}`, {
-      x: 50,
-      y: height - 80,
-      size: 14,
-      font: helveticaFont,
-      color: rgb(0, 0, 0),
-    });
-
-    page.drawText(`Locality: ${formData.locality}`, {
-      x: 50,
-      y: height - 100,
-      size: 14,
-      font: helveticaFont,
-      color: rgb(0, 0, 0),
-    });
-
-    page.drawText(`City / Town: ${formData.cityOrTown}`, {
-      x: 50,
-      y: height - 120,
-      size: 14,
-      font: helveticaFont,
-      color: rgb(0, 0, 0),
-    });
-
-    page.drawText(`Country: ${formData.country}`, {
-      x: 50,
-      y: height - 140,
-      size: 14,
-      font: helveticaFont,
-      color: rgb(0, 0, 0),
-    });
-
-    page.drawText(`Tax Identification Number (TIN): ${formData.tin}`, {
-      x: 50,
-      y: height - 160,
-      size: 14,
-      font: helveticaFont,
-      color: rgb(0, 0, 0),
-    });
-
-    page.drawText(
+    drawText(
+      page,
+      `Invoice Number: ${formData.invoiceNumber}`,
+      50,
+      height - 20,
+      14,
+      helveticaFont,
+      rgb(0, 0, 0)
+    );
+    drawText(
+      page,
+      `Invoice Date: ${currentDate}`,
+      50,
+      height - 40,
+      14,
+      helveticaFont,
+      rgb(0, 0, 0)
+    );
+    drawText(
+      page,
+      `Full Name or Business Name: ${formData.fullName}`,
+      50,
+      height - 60,
+      14,
+      helveticaFont,
+      rgb(0, 0, 0)
+    );
+    drawText(
+      page,
+      `Address: ${formData.streetAndNumber}`,
+      50,
+      height - 80,
+      14,
+      helveticaFont,
+      rgb(0, 0, 0)
+    );
+    drawText(
+      page,
+      `Locality: ${formData.locality}`,
+      50,
+      height - 100,
+      14,
+      helveticaFont,
+      rgb(0, 0, 0)
+    );
+    drawText(
+      page,
+      `City / Town: ${formData.cityOrTown}`,
+      50,
+      height - 120,
+      14,
+      helveticaFont,
+      rgb(0, 0, 0)
+    );
+    drawText(
+      page,
+      `Country: ${formData.country}`,
+      50,
+      height - 140,
+      14,
+      helveticaFont,
+      rgb(0, 0, 0)
+    );
+    drawText(
+      page,
+      `Tax Identification Number (TIN): ${formData.tin}`,
+      50,
+      height - 160,
+      14,
+      helveticaFont,
+      rgb(0, 0, 0)
+    );
+    drawText(
+      page,
       `Client's Full Name or Business Name: ${formData.clientFullName}`,
-      {
-        x: 50,
-        y: height - 180,
-        size: 14,
-        font: helveticaFont,
-        color: rgb(0, 0, 0),
-      }
+      50,
+      height - 180,
+      14,
+      helveticaFont,
+      rgb(0, 0, 0)
     );
-
-    page.drawText(`Client's Address: ${formData.clientAddress}`, {
-      x: 50,
-      y: height - 200,
-      size: 14,
-      font: helveticaFont,
-      color: rgb(0, 0, 0),
-    });
-
-    page.drawText(`Client's Postal Code: ${formData.clientPostalCode}`, {
-      x: 50,
-      y: height - 220,
-      size: 14,
-      font: helveticaFont,
-      color: rgb(0, 0, 0),
-    });
-
-    page.drawText(`Client's Locality: ${formData.clientLocality}`, {
-      x: 50,
-      y: height - 240,
-      size: 14,
-      font: helveticaFont,
-      color: rgb(0, 0, 0),
-    });
-
-    page.drawText(`Client's City / Town: ${formData.clientCityOrTown}`, {
-      x: 50,
-      y: height - 260,
-      size: 14,
-      font: helveticaFont,
-      color: rgb(0, 0, 0),
-    });
-
-    page.drawText(`Client's Country: ${formData.clientCountry}`, {
-      x: 50,
-      y: height - 280,
-      size: 14,
-      font: helveticaFont,
-      color: rgb(0, 0, 0),
-    });
-
-    page.drawText(
+    drawText(
+      page,
+      `Client's Address: ${formData.clientAddress}`,
+      50,
+      height - 200,
+      14,
+      helveticaFont,
+      rgb(0, 0, 0)
+    );
+    drawText(
+      page,
+      `Client's Postal Code: ${formData.clientPostalCode}`,
+      50,
+      height - 220,
+      14,
+      helveticaFont,
+      rgb(0, 0, 0)
+    );
+    drawText(
+      page,
+      `Client's Locality: ${formData.clientLocality}`,
+      50,
+      height - 240,
+      14,
+      helveticaFont,
+      rgb(0, 0, 0)
+    );
+    drawText(
+      page,
+      `Client's City / Town: ${formData.clientCityOrTown}`,
+      50,
+      height - 260,
+      14,
+      helveticaFont,
+      rgb(0, 0, 0)
+    );
+    drawText(
+      page,
+      `Client's Country: ${formData.clientCountry}`,
+      50,
+      height - 280,
+      14,
+      helveticaFont,
+      rgb(0, 0, 0)
+    );
+    drawText(
+      page,
       `Client's Tax Identification Number (TIN): ${formData.clientTin}`,
-      {
-        x: 50,
-        y: height - 300,
-        size: 14,
-        font: helveticaFont,
-        color: rgb(0, 0, 0),
-      }
+      50,
+      height - 300,
+      14,
+      helveticaFont,
+      rgb(0, 0, 0)
     );
-
-    page.drawText(`Currency: ${formData.currency}`, {
-      x: 50,
-      y: height - 320,
-      size: 14,
-      font: helveticaFont,
-      color: rgb(0, 0, 0),
-    });
-
-    page.drawText(`Payment Due Date: ${formData.paymentDueDate}`, {
-      x: 50,
-      y: height - 340,
-      size: 14,
-      font: helveticaFont,
-      color: rgb(0, 0, 0),
-    });
+    drawText(
+      page,
+      `Currency: ${formData.currency}`,
+      50,
+      height - 320,
+      14,
+      helveticaFont,
+      rgb(0, 0, 0)
+    );
+    drawText(
+      page,
+      `Payment Due Date: ${formData.paymentDueDate}`,
+      50,
+      height - 340,
+      14,
+      helveticaFont,
+      rgb(0, 0, 0)
+    );
 
     formData.services.forEach((service, index) => {
       const startY = height - 360 - index * 60;
-      page.drawText(`Service ${index + 1}: ${service.description}`, {
-        x: 50,
-        y: startY,
-        size: 14,
-        font: helveticaFont,
-        color: rgb(0, 0, 0),
-      });
-      page.drawText(`Quantity: ${service.quantity}`, {
-        x: 200,
-        y: startY,
-        size: 14,
-        font: helveticaFont,
-        color: rgb(0, 0, 0),
-      });
-      page.drawText(`Rate Per Unit: $${service.ratePerUnit.toFixed(2)}`, {
-        x: 300,
-        y: startY,
-        size: 14,
-        font: helveticaFont,
-        color: rgb(0, 0, 0),
-      });
-      page.drawText(`Total Amount: $${service.totalAmount.toFixed(2)}`, {
-        x: 400,
-        y: startY,
-        size: 14,
-        font: helveticaFont,
-        color: rgb(0, 0, 0),
-      });
+      drawText(
+        page,
+        `Service ${index + 1}: ${service.description}`,
+        50,
+        startY,
+        14,
+        helveticaFont,
+        rgb(0, 0, 0)
+      );
+      drawText(
+        page,
+        `Quantity: ${service.quantity}`,
+        200,
+        startY,
+        14,
+        helveticaFont,
+        rgb(0, 0, 0)
+      );
+      drawText(
+        page,
+        `Rate Per Unit: $${service.ratePerUnit.toFixed(2)}`,
+        300,
+        startY,
+        14,
+        helveticaFont,
+        rgb(0, 0, 0)
+      );
+      drawText(
+        page,
+        `Total Amount: $${service.totalAmount.toFixed(2)}`,
+        400,
+        startY,
+        14,
+        helveticaFont,
+        rgb(0, 0, 0)
+      );
     });
 
-    page.drawText(`Payment Terms: ${formData.paymentTerms}`, {
-      x: 50,
-      y: height - 360 - formData.services.length * 60,
-      size: 14,
-      font: helveticaFont,
-      color: rgb(0, 0, 0),
-    });
-
-    page.drawText(`Bank Account Details: ${formData.bankAccountDetails}`, {
-      x: 50,
-      y: height - 380 - formData.services.length * 60,
-      size: 14,
-      font: helveticaFont,
-      color: rgb(0, 0, 0),
-    });
-
-    page.drawText(`Payment Instructions: ${formData.paymentInstructions}`, {
-      x: 50,
-      y: height - 400 - formData.services.length * 60,
-      size: 14,
-      font: helveticaFont,
-      color: rgb(0, 0, 0),
-    });
-
-    page.drawText(`Terms and Conditions: ${formData.termsAndConditions}`, {
-      x: 50,
-      y: height - 420 - formData.services.length * 60,
-      size: 14,
-      font: helveticaFont,
-      color: rgb(0, 0, 0),
-    });
-
-    page.drawText(`VAT: ${formattedVat}`, {
-      x: 50,
-      y: height - 440 - formData.services.length * 60,
-      size: 14,
-      font: helveticaFont,
-      color: rgb(0, 0, 0),
-    });
-
-    page.drawText(`Shipping Fees: $${formData.shippingFees.toFixed(2)}`, {
-      x: 50,
-      y: height - 460 - formData.services.length * 60,
-      size: 14,
-      font: helveticaFont,
-      color: rgb(0, 0, 0),
-    });
+    drawText(
+      page,
+      `Payment Terms: ${formData.paymentTerms}`,
+      50,
+      height - 360 - formData.services.length * 60,
+      14,
+      helveticaFont,
+      rgb(0, 0, 0)
+    );
+    drawText(
+      page,
+      `Bank Account Details: ${formData.bankAccountDetails}`,
+      50,
+      height - 380 - formData.services.length * 60,
+      14,
+      helveticaFont,
+      rgb(0, 0, 0)
+    );
+    drawText(
+      page,
+      `Payment Instructions: ${formData.paymentInstructions}`,
+      50,
+      height - 400 - formData.services.length * 60,
+      14,
+      helveticaFont,
+      rgb(0, 0, 0)
+    );
+    drawText(
+      page,
+      `Terms and Conditions: ${formData.termsAndConditions}`,
+      50,
+      height - 420 - formData.services.length * 60,
+      14,
+      helveticaFont,
+      rgb(0, 0, 0)
+    );
+    drawText(
+      page,
+      `VAT: ${formattedVat}`,
+      50,
+      height - 440 - formData.services.length * 60,
+      14,
+      helveticaFont,
+      rgb(0, 0, 0)
+    );
+    drawText(
+      page,
+      `Shipping Fees: $${formData.shippingFees.toFixed(2)}`,
+      50,
+      height - 460 - formData.services.length * 60,
+      14,
+      helveticaFont,
+      rgb(0, 0, 0)
+    );
 
     const generatedPdfDataUri = await pdfDoc.saveAsBase64({ dataUri: true });
 
@@ -618,15 +647,17 @@ export const App = () => {
             />
           </div>
         </section>
-        <Button type="submit" label="Generate PDF" />
+        <Button type="submit" label="Generate Invoice" />
       </form>
-      {pdfEmbed && pdfDataUri && (
-        <iframe
-          src={pdfDataUri}
-          title="Generated PDF"
-          width="100%"
-          height="500px"
-        />
+      {pdfEmbed && (
+        <div className="mt-8">
+          <iframe
+            title="Generated Invoice"
+            width="100%"
+            height="600"
+            src={pdfDataUri || undefined}
+          />
+        </div>
       )}
     </main>
   );
