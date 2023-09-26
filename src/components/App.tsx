@@ -405,7 +405,8 @@ export const App = () => {
     <main className="bg-gray-900 p-8 grid place-content-center">
       <h1 className="text-3xl text-white mb-4">Invoice Generator</h1>
       <form onSubmit={handleSubmit} className="space-y-4">
-        <section className="grid grid-cols-2 gap-4">
+        <fieldset className="grid grid-cols-2 gap-4">
+          <legend className="text-gray-100 mb-3">Invoice Information</legend>
           <FormField
             label="Invoice Number"
             name="invoiceNumber"
@@ -424,8 +425,9 @@ export const App = () => {
             required
             example="E.g. 10/06/2009"
           />
-        </section>
-        <section className="grid grid-cols-3 gap-4">
+        </fieldset>
+        <fieldset className="grid grid-cols-3 gap-4">
+          <legend className="text-gray-100 mb-3">Sender Information</legend>
           <FormField
             label="Full Name / Business Name"
             name="fullName"
@@ -487,8 +489,9 @@ export const App = () => {
             onChange={handleInputChange}
             example="E.g. GB123456789"
           />
-        </section>
-        <section className="grid grid-cols-3 gap-4">
+        </fieldset>
+        <fieldset className="grid grid-cols-3 gap-4">
+          <legend className="text-gray-100 mb-3">Client Information</legend>
           <FormField
             label="Client's Full Name / Business Name"
             name="clientFullName"
@@ -549,8 +552,9 @@ export const App = () => {
             onChange={handleInputChange}
             example="E.g. DE987654321"
           />
-        </section>
-        <section className="grid grid-cols-2 gap-4">
+        </fieldset>
+        <fieldset className="grid grid-cols-2 gap-4">
+          <legend className="text-gray-100 mb-3">Payment Information</legend>
           <FormSelect
             label="Currency"
             name="currency"
@@ -570,8 +574,9 @@ export const App = () => {
             required
             example="E.g. 11/08/2009"
           />
-        </section>
-        <section className="grid grid-cols-1 gap-4">
+        </fieldset>
+        <fieldset className="grid grid-cols-1 gap-4">
+          <legend className="text-gray-100 mb-3">Services</legend>
           <div className="w-full mx-auto">
             {formData.services.map((service, index) => (
               <div key={index}>
@@ -618,8 +623,11 @@ export const App = () => {
             ))}
           </div>
           <Button type="button" onClick={addService} label="Add Service" />
-        </section>
-        <section className="grid grid-cols-3 gap-4">
+        </fieldset>
+        <fieldset className="grid grid-cols-3 gap-4">
+          <legend className="text-gray-100 mb-3">
+            Payment and Banking Details
+          </legend>
           <FormTextarea
             label="Payment Terms"
             name="paymentTerms"
@@ -646,8 +654,9 @@ export const App = () => {
             placeholder="Additional Payment Instructions or Terms"
             example="E.g. Please include the invoice number as the payment reference."
           />
-        </section>
-        <section className="grid grid-cols-2 gap-4">
+        </fieldset>
+        <fieldset className="grid grid-cols-2 gap-4">
+          <legend className="text-gray-100 mb-3">Additional Information</legend>
           <FormTextarea
             label="Terms and Conditions"
             name="termsAndConditions"
@@ -675,7 +684,7 @@ export const App = () => {
               example="E.g. €50"
             />
           </div>
-        </section>
+        </fieldset>
         <Button type="submit" label="Generate Invoice" />
       </form>
       {pdfEmbed && (
