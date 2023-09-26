@@ -7,4 +7,5 @@ export type FormFields = {
   value: any;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   required?: boolean;
+  example: string;
 };

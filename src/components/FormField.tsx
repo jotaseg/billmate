@@ -8,6 +8,7 @@ export const FormField: FC<FormFields> = ({
   value,
   onChange,
   required = false,
+  example,
 }) => {
   return (
     <div className="relative">
@@ -24,8 +25,13 @@ export const FormField: FC<FormFields> = ({
         value={value}
         onChange={onChange}
         required={required}
-        className="mt-1 w-full rounded-md p-2 border-gray-200 mb-3 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-white sm:text-sm"
+        className="mt-1 w-full rounded-md p-2 border-gray-200 mb-1 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-white sm:text-sm"
       />
+      {example && (
+        <p className="text-xs text-gray-400 dark:text-gray-300 mt-1">
+          {example}
+        </p>
+      )}
     </div>
   );
 };

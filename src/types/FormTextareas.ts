@@ -7,4 +7,5 @@ export type FormTextareas = {
   onChange: (e: ChangeEvent<HTMLTextAreaElement>) => void;
   rows?: number;
   placeholder?: string;
+  example: string;
 };

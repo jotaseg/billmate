@@ -402,7 +402,7 @@ export const App = () => {
   };
 
   return (
-    <main className="bg-gray-900 p-4 grid place-content-center">
+    <main className="bg-gray-900 p-8 grid place-content-center">
       <h1 className="text-3xl text-white mb-4">Invoice Generator</h1>
       <form onSubmit={handleSubmit} className="space-y-4">
         <section className="grid grid-cols-2 gap-4">
@@ -413,6 +413,7 @@ export const App = () => {
             value={formData.invoiceNumber}
             onChange={handleInputChange}
             required
+            example="E.g., INV12345"
           />
           <FormField
             label="Invoice Date"
@@ -421,6 +422,7 @@ export const App = () => {
             value={formData.invoiceDate}
             onChange={handleInputChange}
             required
+            example="E.g. 10/06/2009"
           />
         </section>
         <section className="grid grid-cols-3 gap-4">
@@ -431,6 +433,7 @@ export const App = () => {
             value={formData.fullName}
             onChange={handleInputChange}
             required
+            example="E.g. John Doe's Company"
           />
           <FormField
             label="Address (street and number)"
@@ -439,6 +442,7 @@ export const App = () => {
             value={formData.streetAndNumber}
             onChange={handleInputChange}
             required
+            example="E.g. 123 International Avenue"
           />
           <FormField
             label="Postal Code"
@@ -447,6 +451,7 @@ export const App = () => {
             value={formData.postalCode}
             onChange={handleInputChange}
             required
+            example="E.g. 56789"
           />
           <FormField
             label="Locality"
@@ -454,6 +459,7 @@ export const App = () => {
             type="text"
             value={formData.locality}
             onChange={handleInputChange}
+            example="E.g. Business Center"
           />
           <FormField
             label="City / Town"
@@ -462,6 +468,7 @@ export const App = () => {
             value={formData.cityOrTown}
             onChange={handleInputChange}
             required
+            example="E.g. Metropolis"
           />
           <FormField
             label="Country"
@@ -470,6 +477,7 @@ export const App = () => {
             value={formData.country}
             onChange={handleInputChange}
             required
+            example="E.g. United Kingdom"
           />
           <FormField
             label="Tax Identification Number (TIN)"
@@ -477,6 +485,7 @@ export const App = () => {
             type="text"
             value={formData.tin}
             onChange={handleInputChange}
+            example="E.g. GB123456789"
           />
         </section>
         <section className="grid grid-cols-3 gap-4">
@@ -487,6 +496,7 @@ export const App = () => {
             value={formData.clientFullName}
             onChange={handleInputChange}
             required
+            example="E.g. EuroTech Solutions GmbH"
           />
           <FormField
             label="Client's Address"
@@ -495,6 +505,7 @@ export const App = () => {
             value={formData.clientAddress}
             onChange={handleInputChange}
             required
+            example="E.g. 456 Tech Street"
           />
           <FormField
             label="Client's Postal Code"
@@ -502,6 +513,7 @@ export const App = () => {
             type="text"
             value={formData.clientPostalCode}
             onChange={handleInputChange}
+            example="E.g. 12345"
           />
           <FormField
             label="Client's Locality"
@@ -509,6 +521,7 @@ export const App = () => {
             type="text"
             value={formData.clientLocality}
             onChange={handleInputChange}
+            example="E.g. Techville"
           />
           <FormField
             label="Client's City / Town"
@@ -517,6 +530,7 @@ export const App = () => {
             value={formData.clientCityOrTown}
             onChange={handleInputChange}
             required
+            example="E.g. Berlin"
           />
           <FormField
             label="Client's Country"
@@ -525,6 +539,7 @@ export const App = () => {
             value={formData.clientCountry}
             onChange={handleInputChange}
             required
+            example="E.g. Germany"
           />
           <FormField
             label="Client's Tax Identification Number (TIN)"
@@ -532,6 +547,7 @@ export const App = () => {
             type="text"
             value={formData.clientTin}
             onChange={handleInputChange}
+            example="E.g. DE987654321"
           />
         </section>
         <section className="grid grid-cols-2 gap-4">
@@ -552,10 +568,11 @@ export const App = () => {
             value={formData.paymentDueDate}
             onChange={handleInputChange}
             required
+            example="E.g. 11/08/2009"
           />
         </section>
         <section className="grid grid-cols-1 gap-4">
-          <div className="w-full max-w-2xl mx-auto">
+          <div className="w-full mx-auto">
             {formData.services.map((service, index) => (
               <div key={index}>
                 <div className="grid grid-cols-4 gap-4">
@@ -566,6 +583,7 @@ export const App = () => {
                     value={service.description}
                     onChange={handleInputChange}
                     required
+                    example="E.g. IT Consulting Services"
                   />
                   <FormField
                     label={`Quantity`}
@@ -574,6 +592,7 @@ export const App = () => {
                     value={service.quantity}
                     onChange={handleInputChange}
                     required
+                    example="E.g. 20 hours"
                   />
                   <FormField
                     label={`Rate Per Unit`}
@@ -582,6 +601,7 @@ export const App = () => {
                     value={service.ratePerUnit}
                     onChange={handleInputChange}
                     required
+                    example="E.g. €75 per hour"
                   />
                   <Button
                     type="button"
@@ -590,7 +610,9 @@ export const App = () => {
                   />
                 </div>
                 <div>
-                  <div>Total Amount: {service.totalAmount.toFixed(2)}</div>
+                  <div className="text-xs text-gray-400 dark:text-gray-300 mt-1">
+                    Total Amount: {service.totalAmount.toFixed(2)}
+                  </div>
                 </div>
               </div>
             ))}
@@ -604,6 +626,7 @@ export const App = () => {
             value={formData.paymentTerms}
             onChange={handleInputChange}
             rows={4}
+            example="E.g. Net 15 days (Payment is due within 15 days from the invoice date)"
           />
           <FormTextarea
             label="Bank Account Details"
@@ -611,6 +634,8 @@ export const App = () => {
             value={formData.bankAccountDetails}
             onChange={handleInputChange}
             rows={4}
+            placeholder={`Bank Name: Global Bank\nAccount Holder: Global Trade Ltd\nIBAN: GB12 XXXX XXXX XXXX XXXX XX\nBIC/SWIFT Code: GLOBBNK1234`}
+            example="E.g. Details of the bank"
           />
           <FormTextarea
             label="Payment Instructions"
@@ -619,6 +644,7 @@ export const App = () => {
             onChange={handleInputChange}
             rows={4}
             placeholder="Additional Payment Instructions or Terms"
+            example="E.g. Please include the invoice number as the payment reference."
           />
         </section>
         <section className="grid grid-cols-2 gap-4">
@@ -629,6 +655,7 @@ export const App = () => {
             onChange={handleInputChange}
             rows={4}
             placeholder="Terms and Conditions (e.g., late payment fees, refund policies, confidentiality agreements)"
+            example="Payment is due within 15 days of the invoice date. "
           />
           <div>
             <FormField
@@ -637,6 +664,7 @@ export const App = () => {
               type="number"
               value={formData.vat}
               onChange={handleInputChange}
+              example="E.g. 9%"
             />
             <FormField
               label="Shipping Fees"
@@ -644,6 +672,7 @@ export const App = () => {
               type="number"
               value={formData.shippingFees}
               onChange={handleInputChange}
+              example="E.g. €50"
             />
           </div>
         </section>

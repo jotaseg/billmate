@@ -8,6 +8,7 @@ export const FormTextarea: FC<FormTextareas> = ({
   onChange,
   rows = 4,
   placeholder = "",
+  example,
 }) => {
   return (
     <div>
@@ -26,6 +27,9 @@ export const FormTextarea: FC<FormTextareas> = ({
         placeholder={placeholder}
         className="mt-2 w-full rounded-lg p-2 border-gray-200 align-top shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-white sm:text-sm"
       />
+      {example && (
+        <p className="text-xs text-gray-400 dark:text-gray-300 mt-1">{`${example}`}</p>
+      )}
     </div>
   );
 };
